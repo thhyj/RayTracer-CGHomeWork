@@ -80,13 +80,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="D:/homework/rayTracing/Camera.h">
+			<Option target="rayTracing"/>
+		</Unit>
+		<Unit filename="D:/homework/rayTracing/Collide.h">
+			<Option target="rayTracing"/>
+		</Unit>
+		<Unit filename="D:/homework/rayTracing/CollisibleList.h">
+			<Option target="rayTracing"/>
+		</Unit>
+		<Unit filename="D:/homework/rayTracing/Ray.h">
+			<Option target="rayTracing"/>
+		</Unit>
+		<Unit filename="D:/homework/rayTracing/Sphere.h">
+			<Option target="rayTracing"/>
+		</Unit>
+		<Unit filename="D:/homework/rayTracing/Vector.h">
+			<Option target="rayTracing"/>
+		</Unit>
 		<Unit filename="D:/homework/rayTracing/main.cpp">
-			<Option target="rayTracing"/>
-		</Unit>
-		<Unit filename="D:/homework/rayTracing/ray.h">
-			<Option target="rayTracing"/>
-		</Unit>
-		<Unit filename="D:/homework/rayTracing/vector.h">
 			<Option target="rayTracing"/>
 		</Unit>
 		<Unit filename="D:/homework/rayTracing/CMakeLists.txt">
