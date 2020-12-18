@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/homework/rayTracing/main.cpp
+svpng.inc
+D:/homework/rayTracing/svpng.inc
+cstdio
+-
+vector
+-
+vector.h
+D:/homework/rayTracing/vector.h
+ray.h
+D:/homework/rayTracing/ray.h
+
+D:/homework/rayTracing/ray.h
+vector.h
+D:/homework/rayTracing/vector.h
+
+D:/homework/rayTracing/svpng.inc
+stdio.h
+-
+
+D:/homework/rayTracing/vector.h
+cmath
+-
+iostream
+-
+
