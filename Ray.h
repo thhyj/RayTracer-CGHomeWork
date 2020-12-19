@@ -4,7 +4,7 @@
 
 #ifndef RAYTRACING_RAY_H
 #define RAYTRACING_RAY_H
-#include "vector.h"
+#include "Vector.h"
 /**
  * 光线类
  * 由一个起点和方向向量表示一条光线
@@ -26,7 +26,7 @@ struct Ray {
         return dir;
     }
 
-    Point3f get(float t) const {
+    Point3f get(double t) const {
         return o + dir * t;
     }
     void print() const{

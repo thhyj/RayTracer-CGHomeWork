@@ -4,6 +4,11 @@
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../Camera.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../Collide.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../CollisibleList.h
+CMakeFiles/rayTracing.dir/main.cpp.obj: ../Glass.h
+CMakeFiles/rayTracing.dir/main.cpp.obj: ../Lambertian.h
+CMakeFiles/rayTracing.dir/main.cpp.obj: ../Material.h
+CMakeFiles/rayTracing.dir/main.cpp.obj: ../Metal.h
+CMakeFiles/rayTracing.dir/main.cpp.obj: ../Random.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../Ray.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../Sphere.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../Vector.h

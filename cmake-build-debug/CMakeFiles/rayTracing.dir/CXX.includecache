@@ -24,6 +24,36 @@ vector
 Collide.h
 D:/homework/rayTracing/Collide.h
 
+D:/homework/rayTracing/Glass.h
+Material.h
+D:/homework/rayTracing/Material.h
+Random.h
+D:/homework/rayTracing/Random.h
+
+D:/homework/rayTracing/Lambertian.h
+Material.h
+D:/homework/rayTracing/Material.h
+Random.h
+D:/homework/rayTracing/Random.h
+
+D:/homework/rayTracing/Material.h
+Collide.h
+D:/homework/rayTracing/Collide.h
+
+D:/homework/rayTracing/Metal.h
+Material.h
+D:/homework/rayTracing/Material.h
+Random.h
+D:/homework/rayTracing/Random.h
+
+D:/homework/rayTracing/Random.h
+Vector.h
+D:/homework/rayTracing/Vector.h
+Ray.h
+D:/homework/rayTracing/Ray.h
+Random
+-
+
 D:/homework/rayTracing/Ray.h
 Vector.h
 D:/homework/rayTracing/Vector.h
@@ -31,6 +61,8 @@ D:/homework/rayTracing/Vector.h
 D:/homework/rayTracing/Sphere.h
 Collide.h
 D:/homework/rayTracing/Collide.h
+Material.h
+D:/homework/rayTracing/Material.h
 
 D:/homework/rayTracing/Vector.h
 cmath
@@ -61,6 +93,14 @@ CollisibleList.h
 D:/homework/rayTracing/CollisibleList.h
 Camera.h
 D:/homework/rayTracing/Camera.h
+Material.h
+D:/homework/rayTracing/Material.h
+Lambertian.h
+D:/homework/rayTracing/Lambertian.h
+Metal.h
+D:/homework/rayTracing/Metal.h
+Glass.h
+D:/homework/rayTracing/Glass.h
 
 D:/homework/rayTracing/svpng.inc
 stdio.h

@@ -5,6 +5,11 @@ CMakeFiles/rayTracing.dir/main.cpp.obj
  D:/homework/rayTracing/Camera.h
  D:/homework/rayTracing/Collide.h
  D:/homework/rayTracing/CollisibleList.h
+ D:/homework/rayTracing/Glass.h
+ D:/homework/rayTracing/Lambertian.h
+ D:/homework/rayTracing/Material.h
+ D:/homework/rayTracing/Metal.h
+ D:/homework/rayTracing/Random.h
  D:/homework/rayTracing/Ray.h
  D:/homework/rayTracing/Sphere.h
  D:/homework/rayTracing/Vector.h

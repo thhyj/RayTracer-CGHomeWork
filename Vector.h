@@ -15,18 +15,18 @@
  */
 struct Vector3f {
     union {
-        float a[3];
+        double a[3];
         struct {
-            float r, g, b;
+            double r, g, b;
         };
         struct {
-            float x, y, z;
+            double x, y, z;
         };
     };
     Vector3f():a(){}
-    Vector3f(float x, float y, float z):x(x), y(y), z(z) {
+    Vector3f(double x, double y, double z):x(x), y(y), z(z) {
     }
-    Vector3f(float *a) {
+    Vector3f(double *a) {
         this->a[0] = a[0];
         this->a[1] = a[1];
         this->a[2] = a[2];
@@ -37,10 +37,10 @@ struct Vector3f {
     Vector3f operator - () const {
         return Vector3f(-x, -y, -z);
     }
-    float operator[](int i) const{
+    double operator[](int i) const{
         return a[i];
     }
-    float &operator[](int i){
+    double &operator[](int i){
         return a[i];
     }
 
@@ -76,15 +76,15 @@ struct Vector3f {
         return *this;
     }
 
-    Vector3f operator*(float t) const {
+    Vector3f operator*(double t) const {
         return Vector3f{x * t, y * t, z * t};
     }
 
-    friend Vector3f operator*(float t, const Vector3f& rhs) {
+    friend Vector3f operator*(double t, const Vector3f& rhs) {
         return Vector3f{t * rhs.x, t * rhs.y, t * rhs.z};
     }
 
-    Vector3f &operator*=(float t) {
+    Vector3f &operator*=(double t) {
         x *= t;
         y *= t;
         z *= t;
@@ -102,11 +102,11 @@ struct Vector3f {
         return *this;
     }
 
-    Vector3f operator/(float t) const{
+    Vector3f operator/(double t) const{
         return Vector3f{x / t, y / t, z / t};
     }
 
-    Vector3f &operator/=(float t) {
+    Vector3f &operator/=(double t) {
         x /= t;
         y /= t;
         z /= t;
@@ -115,15 +115,15 @@ struct Vector3f {
 
 
 
-    float length() const {
-        return sqrtf(x * x + y * y + z * z);
+    double length() const {
+        return sqrt(x * x + y * y + z * z);
     }
-    float length2() const {
+    double length2() const {
         return x * x + y * y + z * z;
     }
 
     Vector3f &normalize() {
-        float inv = 1.0f / length();
+        double inv = 1.0f / length();
         x *= inv;
         y *= inv;
         z *= inv;
@@ -139,7 +139,7 @@ struct Vector3f {
         return is;
     }
 
-    float dot(const Vector3f &rhs) const{
+    double dot(const Vector3f &rhs) const{
         return x * rhs.x + y * rhs.y + z * rhs.z;
     }
 
@@ -150,7 +150,7 @@ struct Vector3f {
         std:: cout <<x<< " "<<y<< " "<<z<< "\n";
     }
 };
-float dot(const Vector3f &a, const Vector3f &b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
+double dot(const Vector3f &a, const Vector3f &b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
 
 Vector3f cross(const Vector3f &a, const Vector3f &b) {
     return {a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x};
