@@ -1,3 +1,3 @@
 "D:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\rayTracing.dir/objects.a
 D:\mingw64\bin\ar.exe cr CMakeFiles\rayTracing.dir/objects.a @CMakeFiles\rayTracing.dir\objects1.rsp
-D:\mingw64\bin\g++.exe  -std=c++11  -O3 -pthread -fopenmp -g   -Wl,--whole-archive CMakeFiles\rayTracing.dir/objects.a -Wl,--no-whole-archive  -o rayTracing.exe -Wl,--out-implib,librayTracing.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\rayTracing.dir\linklibs.rsp
+D:\mingw64\bin\g++.exe  -std=c++11 -O3 -pthread -fopenmp -g   -Wl,--whole-archive CMakeFiles\rayTracing.dir/objects.a -Wl,--no-whole-archive  -o rayTracing.exe -Wl,--out-implib,librayTracing.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\rayTracing.dir\linklibs.rsp

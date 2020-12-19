@@ -3,6 +3,8 @@
 #include <vector>
 #include <limits>
 #include <random>
+#include <atomic>
+#include <memory>
 #include "Vector.h"
 #include "Ray.h"
 #include "Collide.h"
@@ -13,11 +15,9 @@
 #include "Lambertian.h"
 #include "Metal.h"
 #include "Glass.h"
-const int WIDTH = 640;
-const int HEIGHT = 480;
-//const int WIDTH = 400;
-//const int HEIGHT = 225;
-const double pi = acos(-1);
+const int WIDTH = 1920;
+const int HEIGHT = 1080;
+
 auto viewportHeight = 3.0;
 auto viewportWidth = 4.0;
 auto focalLength = 1.0;
@@ -53,55 +53,10 @@ void paint(byte *d, int x, int y, byte r, byte g, byte b, byte a) {
 }
 
 Color3f mix(const Color3f &a, const Color3f &b, double t) { return a * (1.0f - t) + b * t; }
-/**
- * 求出光线原点与球心连线的向量 p，求 p 在 r 上的投影 a，
- * 然后计算光线原点，球心，投影点三点形成的直角三角形中表示距球心距离的直角边，判断其与半径的大小。
- * @param r 光线
- * @param o 圆心
- * @param radius 半径
- * @return
- */
-double isCollide(const Ray &r, const Point3f &o, double radius) {
-    /*Vector3f p = r.getOrigin() - o;
-    auto a = dot(r.getDir(), p);
-
-    return p.length2() - a * a < radius * radius;*/
-    Vector3f oc = r.getOrigin() - o;
-    auto a = dot(r.getDir(), r.getDir());
-    auto b = 2.0 * dot(oc, r.getDir());
-    auto c = dot(oc, oc) - radius*radius;
-    auto discriminant = b*b - 4*a*c;
-    if (discriminant < 0) {
-        return -1.0;
-    } else {
-        return (-b - sqrt(discriminant) ) / (2.0*a);
-    }
-}
 std::uniform_real_distribution<double> dis(0.0, 1.0), dis2(-1, 1);
 std::mt19937 engine;
-Color3f paintRay(const Ray &r) {
-    double temp = isCollide(r, Point3f(0, 0, -1), 0.5f);
-    if(temp > 0.0f) {
-        return 0.5*((r.get(temp) - Point3f(0, 0, -1)).normalize()+Point3f(1,1,1));
-    }
-    Vector3f dir = r.getDir();
-    double t = 0.5f * (dir.y + 1.0f);
-    return mix({1.0f, 1.0f, 1.0f}, {0.5f, 0.7f, 1.0f}, t);
-}
 
-Color3f paintRay(const Ray &r, const Collisible &ball) {
-    CollideRecord rec;
-    if(ball.collide(r, 0.0f, std::numeric_limits<double>::max(), rec)) {
-        return 0.5f * (rec.normal + Vector3f(1,1,1));
-    }
-    Vector3f dir = r.getDir();
-    double t = 0.5f * (dir.y + 1.0f);
-    return mix({1.0f, 1.0f, 1.0f}, {0.5f, 0.7f, 1.0f}, t);
-}
-
-
-
-Color3f paintRayDiffusion(const Ray &r, const Collisible &ball, int depth) {
+Color3f paintRay(const Ray &r, const Collisible &ball, int depth) {
     if(depth <= 0) {
         return Color3f(0,0,0);
     }
@@ -110,65 +65,86 @@ Color3f paintRayDiffusion(const Ray &r, const Collisible &ball, int depth) {
         Ray scattered;
         Vector3f attenuation;
         if(rec.material->scatter(r, rec, attenuation,scattered));
-        return attenuation * paintRayDiffusion(scattered, ball,depth - 1);
+        return attenuation * paintRay(scattered, ball,depth - 1);
     }
     Vector3f dir = r.getDir();
     double t = 0.5f * (dir.y + 1.0f);
     return mix({1.0f, 1.0f, 1.0f}, {0.5f, 0.7f, 1.0f}, t);
 }
+
+CollisibleList randomScene() {
+    CollisibleList world;
+    auto groundMaterial = new Lambertian(Color3f(0.5, 0.5, 0.5));
+    world.add(new Sphere(Point3f(0, -1000, 0), 1000.0f, groundMaterial));
+    for (int a = -11; a < 11; ++a) {
+        for (int b = -11; b < 11; ++b) {
+            float chooseMat = getRandomdouble();
+            Point3f center(a + 0.9 * getRandomdouble(), 0.2, b + 0.9 * getRandomdouble());
+            if ((center - Point3f(4, 0.2, 0)).length() > 0.9) {
+                Material* sphereMaterial;
+                if (chooseMat < 0.8) {
+                    // diffuse
+                    auto albedo = getRandomVector() * getRandomVector();
+                    sphereMaterial = new Lambertian(albedo);
+                    world.add(new Sphere(center, 0.2f, sphereMaterial));
+                } else if (chooseMat < 0.95) {
+                    // metal
+                    auto albedo = getRandomVector(0.5, 1);
+                    auto fuzz = getRandomdouble(0, 0.5);
+                    sphereMaterial = new Metal(albedo, fuzz);
+                    world.add(new Sphere(center, 0.2f, sphereMaterial));
+                } else {
+                    // glass
+                    sphereMaterial = new Glass(1.5f);
+                    world.add(new Sphere(center, 0.2f, sphereMaterial));
+                }
+            }
+        }
+    }
+    auto material1 = new Glass(1.5f);
+    world.add(new Sphere(Point3f(0, 1, 0), 1.0f, material1));
+
+    auto material2 = new Lambertian(Color3f(0.4, 0.2, 0.1));
+    world.add(new Sphere(Point3f(-4, 1, 0), 1.0f, material2));
+
+    auto material3 = new Metal(Color3f(0.7, 0.6, 0.5), 0.0f);
+    world.add(new Sphere(Point3f(4, 1, 0), 1.0f, material3));
+
+    return world;
+}
+
+
 byte d[4 * WIDTH * HEIGHT];
 int main() {
-    FILE *f = fopen("ch10.png", "wb");
-   lowerLeftCorner.print();
-   horizontal.print();
-   vertical.print();
-    Camera camera(origin, lowerLeftCorner, horizontal, vertical);
-   // Camera camera(origin, Vector3f(-1.77778, -1, -1), Vector3f(3.55556, 0, 0), Vector3f(0, 2,  0));
+    FILE *f = fopen("ch15.png", "wb");
+    Point3f lookFrom(13, 2, 3);
+    Point3f lookAt(0, 0, 0);
+    Vector3f vup(0, 1, 0);
+    Camera camera(lookFrom, lookAt, vup, 20, 16.0/9.0, 0.0, 10.0);
+    camera.lowerLeftCorner.print();
+    camera.horizontal.print();
+    camera.vertical.print();
+    CollisibleList world = randomScene();
 
-    CollisibleList list;
-    Material* material[10];
-   // material[0] = new Lambertian({0.8, 0.3, 0.3});
-   // material[0] = new Glass(1.5);
-   //center
-    material[0] = new Lambertian({0.1, 0.2, 0.5});
-    //ground
-    material[1] = new Lambertian({0.8, 0.8, 0.0});
-    //right
-    material[2] = new Metal({0.8, 0.6, 0.2}, 0.0);
-    //left
-   // material[3] = new Metal({0.8, 0.8, 0.8}, 1.0);
-    material[3] = new Glass(1.5);
-    Sphere* ball[10];
-    ball[0] = new Sphere({0, 0, -1}, 0.5, material[0]);
-    ball[1] = new Sphere({0, -100.5, -1}, 100, material[1]);
-    ball[2] = new Sphere({1, 0, -1}, 0.5, material[2]);
-    ball[3] = new Sphere({-1, 0, -1}, 0.5, material[3]);
-    ball[4] = new Sphere({-1, 0, -1}, -0.4, material[3]);
-    list.add(ball[0]);
-    list.add(ball[1]);
-    list.add(ball[2]);
-    list.add(ball[3]);
-    list.add(ball[4]);
-    const int SAMPLE_TIMES = 100;
+    const int SAMPLE_TIMES = 5000;
     const int MAX_DEPTH = 50;
     long long total = (long long)WIDTH * HEIGHT * SAMPLE_TIMES, threshold;
-    long long tot = 0, percent = 0;
+    std::atomic<long long> tot{0}, percent{0};
     threshold = total / 100;
+    {
+
     for (int x = 0; x < WIDTH; x++) {
-        for (int y = 0; y < HEIGHT; ++y){
-            Color3f tempColor(0,0,0);
-            for(int i = 0; i < SAMPLE_TIMES; ++i ) {
-                double u = (double )(x + dis(engine)) / WIDTH;
-                double v = (double )(y + + dis(engine)) / HEIGHT;
-             //   double u = (double )(x) / WIDTH;
-            //    double v = (double )(y) / HEIGHT;
-           /*     Vector3f temp = lowerLeftCorner + u * horizontal + v * vertical;
-                Ray r(origin, temp);*/
-                tempColor += paintRayDiffusion(camera.getRay(u, v), list, 50);
+        for (int y = 0; y < HEIGHT; ++y) {
+            Color3f tempColor(0, 0, 0);
+#pragma omp parallel for
+            for (int i = 0; i < SAMPLE_TIMES; ++i) {
+                double u = (double) (x + dis(engine)) / WIDTH;
+                double v = (double) (y + +dis(engine)) / HEIGHT;
+                tempColor += paintRay(camera.getRay(u, v), world, MAX_DEPTH);
                 ++tot;
-                if(tot > threshold) {
+                if (tot == threshold) {
                     percent++;
-                    printf("%lld%%\n", percent);
+                    std::cout << percent << '\n';
                     tot = 0;
                 }
             }
@@ -178,9 +154,12 @@ int main() {
             paint(d, x, y, tempColor, 1.0f);
         }
     }
-    delete ball[0];
-    delete ball[1];
-    delete material[0];
+}
+    for(auto iter =  world.collisibleList.begin(); iter != world.collisibleList.end(); ++iter) {
+        if(static_cast<Sphere*>((*iter))->material != nullptr)
+            delete static_cast<Sphere*>((*iter))->material;
+        delete (*iter);
+    }
     svpng(f, WIDTH, HEIGHT, d, 1);
     fclose(f);
 }

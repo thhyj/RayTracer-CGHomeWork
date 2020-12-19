@@ -11,6 +11,8 @@ Vector.h
 D:/homework/rayTracing/Vector.h
 Ray.h
 D:/homework/rayTracing/Ray.h
+Random.h
+D:/homework/rayTracing/Random.h
 
 D:/homework/rayTracing/Collide.h
 Vector.h
@@ -80,6 +82,10 @@ vector
 limits
 -
 random
+-
+atomic
+-
+memory
 -
 Vector.h
 D:/homework/rayTracing/Vector.h
