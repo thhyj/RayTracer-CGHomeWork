@@ -116,7 +116,7 @@ CollisibleList randomScene() {
 
 byte d[4 * WIDTH * HEIGHT];
 int main() {
-    FILE *f = fopen("ch15.png", "wb");
+    FILE *f = fopen("ch19.png", "wb");
     Point3f lookFrom(13, 2, 3);
     Point3f lookAt(0, 0, 0);
     Vector3f vup(0, 1, 0);

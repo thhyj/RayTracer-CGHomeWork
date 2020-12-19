@@ -6,7 +6,7 @@
 #define RAYTRACING_RANDOM_H
 #include "Vector.h"
 #include "Ray.h"
-#include <Random>
+#include <random>
 /**
  * 生成单位球面上的向量
  * @return
