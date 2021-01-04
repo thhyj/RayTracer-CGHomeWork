@@ -1,4 +1,4 @@
-# Install script for directory: D:/homework/rayTracing
+# Install script for directory: D:/homework/rayTracingTheNextWeek/rayTracing
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/homework/rayTracing/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

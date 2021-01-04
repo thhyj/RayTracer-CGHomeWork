@@ -11,11 +11,11 @@
  * 球体光线碰撞
  */
 struct Sphere:Collisible {
+    std::shared_ptr<Material> material;
     Point3f center;
     double radius;
-    Material *material;
     Sphere():center(), radius() {}
-    Sphere(const Point3f & center, double radius, Material* material):center(center),radius(radius), material(material){}
+    Sphere(const Point3f & center, double radius, std::shared_ptr<Material> material):center(center),radius(radius), material(material){}
     /**
      * 求解与球体的碰撞
      * 求解方程(A + tb - C)* (A + tb - C) = r^2;
@@ -59,5 +59,12 @@ struct Sphere:Collisible {
         return false;
     }
 
+    bool boundingBox(double time0, double time1, aabb& outputBox) const override {
+        outputBox = aabb(
+                center - Vector3f(radius, radius, radius),
+                center + Vector3f(radius, radius, radius)
+                );
+        return true;
+    }
 };
 #endif //RAYTRACING_SPHERE_H

@@ -12,9 +12,9 @@
 struct Ray {
     Point3f o;
     Vector3f dir;
-
+    double time;
     Ray() = default;
-    Ray(const Point3f &o, const Vector3f &dir):o(o), dir(dir){
+    Ray(const Point3f &o, const Vector3f &dir, double time = 0.0):o(o), dir(dir), time(time){
         this->dir.normalize();
     }
 

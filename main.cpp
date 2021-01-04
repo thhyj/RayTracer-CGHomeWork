@@ -15,8 +15,10 @@
 #include "Lambertian.h"
 #include "Metal.h"
 #include "Glass.h"
-const int WIDTH = 1920;
-const int HEIGHT = 1080;
+#include "BVH.h"
+#include "MovingSphere.h"
+const int WIDTH = 640;
+const int HEIGHT = 360;
 
 auto viewportHeight = 3.0;
 auto viewportWidth = 4.0;
@@ -64,69 +66,76 @@ Color3f paintRay(const Ray &r, const Collisible &ball, int depth) {
     if(ball.collide(r, 0.001f, std::numeric_limits<double>::max(), rec)) {
         Ray scattered;
         Vector3f attenuation;
-        if(rec.material->scatter(r, rec, attenuation,scattered));
-        return attenuation * paintRay(scattered, ball,depth - 1);
+        if(rec.material->scatter(r, rec, attenuation,scattered))
+            return attenuation * paintRay(scattered, ball,depth - 1);
+        return Color3f(0, 0, 0);
     }
     Vector3f dir = r.getDir();
     double t = 0.5f * (dir.y + 1.0f);
     return mix({1.0f, 1.0f, 1.0f}, {0.5f, 0.7f, 1.0f}, t);
 }
 
-CollisibleList randomScene() {
+BVH randomScene() {
     CollisibleList world;
-    auto groundMaterial = new Lambertian(Color3f(0.5, 0.5, 0.5));
-    world.add(new Sphere(Point3f(0, -1000, 0), 1000.0f, groundMaterial));
-    for (int a = -11; a < 11; ++a) {
-        for (int b = -11; b < 11; ++b) {
-            float chooseMat = getRandomdouble();
-            Point3f center(a + 0.9 * getRandomdouble(), 0.2, b + 0.9 * getRandomdouble());
+
+    auto ground_material = std::make_shared<Lambertian>(Color3f(0.5, 0.5, 0.5));
+    world.add(std::make_shared<Sphere>(Point3f(0,-1000,0), 1000, ground_material));
+
+    for (int a = -11; a < 11; a++) {
+        for (int b = -11; b < 11; b++) {
+            auto choose_mat = getRandomdouble();
+            Point3f center(a + 0.9*getRandomdouble(), 0.2, b + 0.9*getRandomdouble());
+
             if ((center - Point3f(4, 0.2, 0)).length() > 0.9) {
-                Material* sphereMaterial;
-                if (chooseMat < 0.8) {
+                std::shared_ptr<Material> sphere_material;
+
+                if (choose_mat < 0.8) {
                     // diffuse
-                    auto albedo = getRandomVector() * getRandomVector();
-                    sphereMaterial = new Lambertian(albedo);
-                    world.add(new Sphere(center, 0.2f, sphereMaterial));
-                } else if (chooseMat < 0.95) {
+                    auto albedo = Color3f(getRandomdouble(), getRandomdouble(), getRandomdouble()) *
+                            Color3f(getRandomdouble(), getRandomdouble(), getRandomdouble());
+                    sphere_material = std::make_shared<Lambertian>(albedo);
+                    world.add(std::make_shared<MovingSphere>(center,center +
+                    Vector3f(0, getRandomdouble(0, 0.5), 0) ,0, 1, 0.2, sphere_material));
+                } else if (choose_mat < 0.95) {
                     // metal
-                    auto albedo = getRandomVector(0.5, 1);
+                    auto albedo = Color3f(getRandomdouble(0, 0.5), getRandomdouble(0, 0.5), getRandomdouble(0, 0.5));
                     auto fuzz = getRandomdouble(0, 0.5);
-                    sphereMaterial = new Metal(albedo, fuzz);
-                    world.add(new Sphere(center, 0.2f, sphereMaterial));
+                    sphere_material = std::make_shared<Metal>(albedo, fuzz);
+                    world.add(std::make_shared<Sphere>(center, 0.2, sphere_material));
                 } else {
                     // glass
-                    sphereMaterial = new Glass(1.5f);
-                    world.add(new Sphere(center, 0.2f, sphereMaterial));
+                    sphere_material = std::make_shared<Glass>(1.5);
+                    world.add(std::make_shared<Sphere>(center, 0.2, sphere_material));
                 }
             }
         }
     }
-    auto material1 = new Glass(1.5f);
-    world.add(new Sphere(Point3f(0, 1, 0), 1.0f, material1));
 
-    auto material2 = new Lambertian(Color3f(0.4, 0.2, 0.1));
-    world.add(new Sphere(Point3f(-4, 1, 0), 1.0f, material2));
+    auto material1 = std::make_shared<Glass>(1.5);
+    world.add(std::make_shared<Sphere>(Point3f(0, 1, 0), 1.0, material1));
 
-    auto material3 = new Metal(Color3f(0.7, 0.6, 0.5), 0.0f);
-    world.add(new Sphere(Point3f(4, 1, 0), 1.0f, material3));
+    auto material2 = std::make_shared<Lambertian>(Color3f(0.4, 0.2, 0.1));
+    world.add(std::make_shared<Sphere>(Point3f(-4, 1, 0), 1.0, material2));
 
-    return world;
+    auto material3 = std::make_shared<Metal>(Color3f(0.7, 0.6, 0.5), 0.0);
+    world.add(std::make_shared<Sphere>(Point3f(4, 1, 0), 1.0, material3));
+    return BVH(world, 0, 1);
+   // return world;
 }
-
 
 byte d[4 * WIDTH * HEIGHT];
 int main() {
-    FILE *f = fopen("ch19.png", "wb");
+    FILE *f = fopen("ch22.png", "wb");
     Point3f lookFrom(13, 2, 3);
     Point3f lookAt(0, 0, 0);
     Vector3f vup(0, 1, 0);
-    Camera camera(lookFrom, lookAt, vup, 20, 16.0/9.0, 0.0, 10.0);
+    Camera camera(lookFrom, lookAt, vup, 20, 16.0/9.0, 0.0, 10.0, 0.0, 1.0);
     camera.lowerLeftCorner.print();
     camera.horizontal.print();
     camera.vertical.print();
-    CollisibleList world = randomScene();
-
-    const int SAMPLE_TIMES = 5000;
+  //  CollisibleList world = randomScene();
+    BVH world = randomScene();
+    const int SAMPLE_TIMES = 100;
     const int MAX_DEPTH = 50;
     long long total = (long long)WIDTH * HEIGHT * SAMPLE_TIMES, threshold;
     std::atomic<long long> tot{0}, percent{0};
@@ -155,11 +164,7 @@ int main() {
         }
     }
 }
-    for(auto iter =  world.collisibleList.begin(); iter != world.collisibleList.end(); ++iter) {
-        if(static_cast<Sphere*>((*iter))->material != nullptr)
-            delete static_cast<Sphere*>((*iter))->material;
-        delete (*iter);
-    }
+
     svpng(f, WIDTH, HEIGHT, d, 1);
     fclose(f);
 }

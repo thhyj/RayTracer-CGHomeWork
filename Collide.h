@@ -6,6 +6,7 @@
 #define RAYTRACING_COLLIDE_H
 #include "Vector.h"
 #include "Ray.h"
+#include "AABB.h"
 //#include "Material.h"
 struct Material;
 /**
@@ -16,7 +17,7 @@ struct CollideRecord {
     Point3f p;
     Vector3f normal;
     bool frontFace;
-    Material *material;
+    std::shared_ptr<Material>material;
     inline void setFaceNormal(const Ray& r, const Vector3f& outwardNormal) {
         frontFace = dot(r.getDir(), outwardNormal) < 0;
         normal = frontFace ? outwardNormal :-outwardNormal;
@@ -36,6 +37,7 @@ struct Collisible {
      * @return 返回是否碰撞
      */
     virtual bool collide(const Ray &r, double tMin, double tMax, CollideRecord &rec) const = 0;
+    virtual bool boundingBox(double time0, double time1, aabb& outputBox) const = 0;
     virtual ~Collisible(){}
 };
 #endif //RAYTRACING_COLLIDE_H

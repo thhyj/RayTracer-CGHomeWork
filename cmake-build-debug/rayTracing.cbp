@@ -8,18 +8,18 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="D:/homework/rayTracing/cmake-build-debug"/>
+				<Option working_dir="D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rayTracing">
-				<Option output="D:/homework/rayTracing/cmake-build-debug/rayTracing.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/homework/rayTracing/cmake-build-debug"/>
+				<Option output="D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/rayTracing.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -32,15 +32,15 @@
 					<Add directory="D:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rayTracing"/>
-					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rayTracing"/>
+					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rayTracing/fast">
-				<Option output="D:/homework/rayTracing/cmake-build-debug/rayTracing.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="D:/homework/rayTracing/cmake-build-debug"/>
+				<Option output="D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/rayTracing.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -53,70 +53,79 @@
 					<Add directory="D:/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rayTracing/fast"/>
-					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rayTracing/fast"/>
+					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="D:/homework/rayTracing/cmake-build-debug"/>
+				<Option working_dir="D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="D:/homework/rayTracing/cmake-build-debug"/>
+				<Option working_dir="D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/mingw64/bin/mingw32-make.exe -f &quot;D:/homework/rayTracingTheNextWeek/rayTracing/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="D:/homework/rayTracing/Camera.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/AABB.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/Collide.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/BVH.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/CollisibleList.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Camera.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/Glass.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Collide.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/Lambertian.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/CollisibleList.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/Material.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Glass.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/Metal.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Lambertian.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/Random.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Material.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/Ray.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Metal.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/Sphere.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/MovingSphere.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/Vector.h">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Random.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/main.cpp">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Ray.h">
 			<Option target="rayTracing"/>
 		</Unit>
-		<Unit filename="D:/homework/rayTracing/CMakeLists.txt">
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Sphere.h">
+			<Option target="rayTracing"/>
+		</Unit>
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Vector.h">
+			<Option target="rayTracing"/>
+		</Unit>
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/main.cpp">
+			<Option target="rayTracing"/>
+		</Unit>
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

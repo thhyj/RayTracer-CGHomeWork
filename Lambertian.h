@@ -10,7 +10,7 @@ struct Lambertian : public Material {
     Vector3f albedo;
     Lambertian(Vector3f albedo):albedo(albedo) {}
     bool scatter(const Ray &rayIn, const CollideRecord &rec, Vector3f &attenuation, Ray &scattered) const override{
-        scattered = Ray(rec.p, rec.normal + getRandomUnit());
+        scattered = Ray(rec.p, rec.normal + getRandomUnit(), rayIn.time);
         attenuation = albedo;
         return true;
     }

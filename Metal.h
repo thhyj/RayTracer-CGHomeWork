@@ -15,9 +15,9 @@ struct Metal : public Material{
     Metal(const Vector3f &albedo, double fuzz = 0) : albedo(albedo), fuzz(fuzz){}
     bool scatter(const Ray &rayIn, const CollideRecord &rec, Vector3f &attenuation, Ray &scattered) const override{
         if(fuzz > 1e-6) {
-            scattered = Ray(rec.p, reflect(rayIn.getDir(), rec.normal) + fuzz * getRandomUnit());
+            scattered = Ray(rec.p, reflect(rayIn.getDir(), rec.normal) + fuzz * getRandomUnit(), rayIn.time);
         } else {
-            scattered = Ray(rec.p, reflect(rayIn.getDir(), rec.normal));
+            scattered = Ray(rec.p, reflect(rayIn.getDir(), rec.normal), rayIn.time);
         }
         attenuation = albedo;
         return dot(scattered.getDir(), rec.normal) > 0;

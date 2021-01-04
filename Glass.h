@@ -27,9 +27,9 @@ struct Glass : public Material {
         double sinTheta = sqrt(1.0 - cosTheta * cosTheta);
         //如果不能折射，那就反射(写的时候这里手抖了打错了一个变量，debug了好久。。。
         if(refractionRatio * sinTheta > 1.0 || reflectance(cosTheta, refractionRatio) > getRandomdouble()) {
-            scattered = Ray(rec.p, reflect(rayIn.getDir(), rec.normal));
+            scattered = Ray(rec.p, reflect(rayIn.getDir(), rec.normal), rayIn.time);
         } else {
-            scattered = Ray(rec.p, refract(rayIn.getDir(), rec.normal, refractionRatio));
+            scattered = Ray(rec.p, refract(rayIn.getDir(), rec.normal, refractionRatio), rayIn.time);
         }
         attenuation = albedo;
         return true;
