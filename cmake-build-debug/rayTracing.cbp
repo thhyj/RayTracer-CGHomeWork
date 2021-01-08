@@ -119,6 +119,9 @@
 		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Sphere.h">
 			<Option target="rayTracing"/>
 		</Unit>
+		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Texture.h">
+			<Option target="rayTracing"/>
+		</Unit>
 		<Unit filename="D:/homework/rayTracingTheNextWeek/rayTracing/Vector.h">
 			<Option target="rayTracing"/>
 		</Unit>

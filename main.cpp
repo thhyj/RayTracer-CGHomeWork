@@ -5,6 +5,7 @@
 #include <random>
 #include <atomic>
 #include <memory>
+#include <ctime>
 #include "Vector.h"
 #include "Ray.h"
 #include "Collide.h"
@@ -77,8 +78,8 @@ Color3f paintRay(const Ray &r, const Collisible &ball, int depth) {
 
 BVH randomScene() {
     CollisibleList world;
-
-    auto ground_material = std::make_shared<Lambertian>(Color3f(0.5, 0.5, 0.5));
+    auto checker = std::make_shared<checkerTexture>(Color3f(0.2, 0.3, 0.1), Color3f(0.9, 0.9, 0.9));
+    auto ground_material = std::make_shared<Lambertian>(checker);
     world.add(std::make_shared<Sphere>(Point3f(0,-1000,0), 1000, ground_material));
 
     for (int a = -11; a < 11; a++) {
@@ -140,6 +141,7 @@ int main() {
     long long total = (long long)WIDTH * HEIGHT * SAMPLE_TIMES, threshold;
     std::atomic<long long> tot{0}, percent{0};
     threshold = total / 100;
+    double st = clock();
     {
 
     for (int x = 0; x < WIDTH; x++) {
@@ -167,4 +169,5 @@ int main() {
 
     svpng(f, WIDTH, HEIGHT, d, 1);
     fclose(f);
+    std::cout <<"time = " << clock() - st;
 }

@@ -61,6 +61,10 @@ Material.h
 D:/homework/rayTracingTheNextWeek/rayTracing/Material.h
 Random.h
 D:/homework/rayTracingTheNextWeek/rayTracing/Random.h
+Texture.h
+D:/homework/rayTracingTheNextWeek/rayTracing/Texture.h
+memory
+-
 
 D:/homework/rayTracingTheNextWeek/rayTracing/Material.h
 Collide.h
@@ -94,6 +98,10 @@ D:/homework/rayTracingTheNextWeek/rayTracing/Collide.h
 Material.h
 D:/homework/rayTracingTheNextWeek/rayTracing/Material.h
 
+D:/homework/rayTracingTheNextWeek/rayTracing/Texture.h
+Vector.h
+D:/homework/rayTracingTheNextWeek/rayTracing/Vector.h
+
 D:/homework/rayTracingTheNextWeek/rayTracing/Vector.h
 cmath
 -
@@ -114,6 +122,8 @@ random
 atomic
 -
 memory
+-
+ctime
 -
 Vector.h
 D:/homework/rayTracingTheNextWeek/rayTracing/Vector.h

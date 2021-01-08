@@ -18,6 +18,7 @@ struct CollideRecord {
     Vector3f normal;
     bool frontFace;
     std::shared_ptr<Material>material;
+    double u, v;
     inline void setFaceNormal(const Ray& r, const Vector3f& outwardNormal) {
         frontFace = dot(r.getDir(), outwardNormal) < 0;
         normal = frontFace ? outwardNormal :-outwardNormal;

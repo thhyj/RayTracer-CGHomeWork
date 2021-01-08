@@ -23,10 +23,12 @@ public:
     }
 
     bool collide(const Ray &r, double tMin, double tMax, CollideRecord &rec) const override{
+        return getCollideResult(r, tMin, tMax, rec,getCenter(r.time));
         Vector3f p = r.getOrigin() - getCenter(r.time);
         double b = dot(r.getDir(), p);
         double c = p.length2() - radius * radius;
         double delta = b * b - c;
+      //  return getCollideResult(b, delta, r, tMin, tMax, rec);
         if (delta > 0) {
             double t = (-b - sqrt(delta));
             if (tMin < t && t < tMax) {

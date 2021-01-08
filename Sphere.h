@@ -11,6 +11,7 @@
  * 球体光线碰撞
  */
 struct Sphere:Collisible {
+    static double pi;
     std::shared_ptr<Material> material;
     Point3f center;
     double radius;
@@ -30,19 +31,23 @@ struct Sphere:Collisible {
      * @param rec  碰撞结果记录在rec中
      * @return 返回是否碰撞
      */
-    bool collide(const Ray &r, double tMin, double tMax, CollideRecord &rec) const override{
+
+    inline bool getCollideResult(const Ray &r, double tMin, double tMax, CollideRecord &rec,const Point3f center) const {
         Vector3f p = r.getOrigin() - center;
         double b = dot(r.getDir(), p);
         double c = p.length2() - radius * radius;
         double delta = b * b - c;
+
         if (delta > 0) {
             double t = (-b - sqrt(delta));
             if (tMin < t && t < tMax) {
                 rec.t = t;
                 rec.p = r.get(t);
-               // rec.normal = (rec.p - center).normalize();
+                // rec.normal = (rec.p - center).normalize();
                 rec.material = material;
-                rec.setFaceNormal(r, (rec.p - center) / radius);
+                Vector3f &&outwardNormal = (rec.p - center) / radius;
+                rec.setFaceNormal(r, outwardNormal);
+                getSphereUV(outwardNormal, rec.u, rec.v);
                 return true;
             } else {
                 t = (-b + sqrt(delta));
@@ -51,7 +56,44 @@ struct Sphere:Collisible {
                     rec.p = r.get(t);
                     // rec.normal = (rec.p - center).normalize();
                     rec.material = material;
-                    rec.setFaceNormal(r, (rec.p - center) / radius);
+                    Vector3f &&outwardNormal = (rec.p - center) / radius;
+                    rec.setFaceNormal(r, outwardNormal);
+                    getSphereUV(outwardNormal, rec.u, rec.v);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    bool collide(const Ray &r, double tMin, double tMax, CollideRecord &rec) const override{
+        return getCollideResult(r, tMin, tMax, rec,center);
+        Vector3f p = r.getOrigin() - center;
+        double b = dot(r.getDir(), p);
+        double c = p.length2() - radius * radius;
+        double delta = b * b - c;
+
+        if (delta > 0) {
+            double t = (-b - sqrt(delta));
+            if (tMin < t && t < tMax) {
+                rec.t = t;
+                rec.p = r.get(t);
+               // rec.normal = (rec.p - center).normalize();
+                rec.material = material;
+                Vector3f &&outwardNormal = (rec.p - center) / radius;
+                rec.setFaceNormal(r, outwardNormal);
+                getSphereUV(outwardNormal, rec.u, rec.v);
+                return true;
+            } else {
+                t = (-b + sqrt(delta));
+                if (tMin < t && t < tMax) {
+                    rec.t = t;
+                    rec.p = r.get(t);
+                    // rec.normal = (rec.p - center).normalize();
+                    rec.material = material;
+                    Vector3f &&outwardNormal = (rec.p - center) / radius;
+                    rec.setFaceNormal(r, outwardNormal);
+                    getSphereUV(outwardNormal, rec.u, rec.v);
                     return true;
                 }
             }
@@ -66,5 +108,14 @@ struct Sphere:Collisible {
                 );
         return true;
     }
+
+    static void getSphereUV(const Point3f &p, double &u, double &v) {
+        double theta = acos(-p.y);
+        double phi = atan2(-p.z, p.x) + pi;
+        u = phi / (2 * pi);
+        v = theta / pi;
+    }
+
 };
+double Sphere::pi = acos(-1);
 #endif //RAYTRACING_SPHERE_H

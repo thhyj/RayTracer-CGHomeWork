@@ -14,6 +14,7 @@ CMakeFiles/rayTracing.dir/main.cpp.obj: ../MovingSphere.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../Random.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../Ray.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../Sphere.h
+CMakeFiles/rayTracing.dir/main.cpp.obj: ../Texture.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../Vector.h
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../main.cpp
 CMakeFiles/rayTracing.dir/main.cpp.obj: ../svpng.inc
