@@ -11,41 +11,59 @@
  * 生成单位球面上的向量
  * @return
  */
-Vector3f getRandomUnit() {
- /*   static std::uniform_real_distribution<double> q(-1,1);
-    static std::mt19937 engin;
-    while (true) {
-        auto p = Vector3f(q(engin),q(engin),q(engin));
-        if (p.length2() >= 1) continue;
-        return p.normalize();
-    }*/
-    static Vector3f p;
-    static double alpha, beta;
+std::atomic_int id{0};
+const int threadNumber = 16;
+double alpha[threadNumber], bet[threadNumber];
+std::uniform_real_distribution<double> qwq[threadNumber], qaq[threadNumber];
+std::mt19937 engine[threadNumber];
+
+
+void randomInit() {
     static const double pi = acos(-1);
-    static std::uniform_real_distribution<double> qwq(0.0f, 2 * pi);
-    static std::mt19937 engine;
-    alpha = qwq(engine), beta = qwq(engine);
-    return Vector3f(sin(alpha) * cos(beta), sin(alpha) * sin(beta), cos(beta));
+    for(int i = 0; i < threadNumber; ++i) {
+        qwq[i] = std::uniform_real_distribution<double>(0.0, 2 * pi);
+        engine[i] = std::mt19937(i);
+        qaq[i] = std::uniform_real_distribution<double>(0.0, 1.0);
+    }
+}
+Vector3f getRandomUnit() {
+
+    ++id;
+    int nowId = id % threadNumber;
+    if(id > 1000000000) {
+        id -= 1000000000;
+    }
+
+    alpha[nowId] = qwq[nowId](engine[nowId]), bet[nowId] = qwq[nowId](engine[nowId]);
+    return Vector3f(sin(alpha[nowId]) * cos(bet[nowId]), sin(alpha[nowId]) * sin(bet[nowId]), cos(bet[nowId]));
 }
 double getRandomdouble() {
-    static std::uniform_real_distribution<double> qwq(0.0f, 1.0);
-    static std::mt19937 engine;
-    return qwq(engine);
+    ++id;
+    int nowId = id % threadNumber;
+    if(id > 1000000000) {
+        id -= 1000000000;
+    }
+    return qaq[nowId](engine[nowId]);
 }
 
 double getRandomdouble(double min, double max) {
     return min + (max - min) * getRandomdouble();
 }
 
-uint64_t shuffle_table[4];
+uint64_t shuffle_table[threadNumber][4];
 // The actual algorithm
 uint64_t next(void) {
-    uint64_t s1 = shuffle_table[0];
-    uint64_t s0 = shuffle_table[1];
+    ++id;
+    int nowId = id % threadNumber;
+    if(id > 1000000000) {
+        id -= 1000000000;
+    }
+    uint64_t s1 = shuffle_table[nowId][0];
+    uint64_t s0 = shuffle_table[nowId][1];
     uint64_t result = s0 + s1;
-    shuffle_table[0] = s0;
+    shuffle_table[nowId][0] = s0;
     s1 ^= s1 << 23;
-    shuffle_table[1] = s1 ^ s0 ^ (s1 >> 18) ^ (s0 >> 5);
+    shuffle_table[nowId][1] = s1 ^ s0 ^ (s1 >> 18) ^ (s0 >> 5);
     return result;
 }
 int getRandomInt(int min, int max) {

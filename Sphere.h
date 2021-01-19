@@ -15,8 +15,13 @@ struct Sphere:Collisible {
     std::shared_ptr<Material> material;
     Point3f center;
     double radius;
+    double rotationHorizontal, rotationVertical;
     Sphere():center(), radius() {}
-    Sphere(const Point3f & center, double radius, std::shared_ptr<Material> material):center(center),radius(radius), material(material){}
+    Sphere(const Point3f & center, double radius, std::shared_ptr<Material> material,
+           double rotationHorizontal = 0, double rotationVertical = 0):
+           center(center),radius(radius), material(material),
+           rotationHorizontal(rotationHorizontal),
+           rotationVertical(rotationVertical){}
     /**
      * 求解与球体的碰撞
      * 求解方程(A + tb - C)* (A + tb - C) = r^2;
@@ -109,9 +114,29 @@ struct Sphere:Collisible {
         return true;
     }
 
-    static void getSphereUV(const Point3f &p, double &u, double &v) {
+    void getSphereUV(const Point3f &p, double &u, double &v) const {
         double theta = acos(-p.y);
         double phi = atan2(-p.z, p.x) + pi;
+      //  std::cout << "before phi = " << phi << '\n';
+     //   std::cout <<"rotationHorizontal = " << rotationHorizontal << '\n';
+        phi += rotationHorizontal / (180.0) * pi;
+     //   std::cout << "after phi = " << phi << '\n';
+        if(phi > 2 * pi) {
+            phi -= 2 * pi;
+        }
+        if(phi < 0) {
+            phi += 2 * pi;
+        }
+  //      std::cout << "before theta = " << theta << '\n';
+   //     std::cout <<"rotationVertical = " << rotationVertical << '\n';
+        theta += rotationVertical / (180.0) * pi;
+   //    std::cout << "after theta = " << theta << '\n';
+        if(theta > pi) {
+            theta -= pi;
+        }
+        if(theta < 0) {
+            theta+=pi;
+        }
         u = phi / (2 * pi);
         v = theta / pi;
     }
